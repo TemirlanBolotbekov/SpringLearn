@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+        <context:property-placeholder location="application.properties"/>
+
+
+    <bean id="classMusicBean"
+          class="spring.learn.with.xml.ClassicalMusic"
+          init-method="myInit"
+          destroy-method="myDestroy"
+          factory-method="getClassicalMusic">
+    </bean>
+
+    <bean id="popMusicBean"
+          class="spring.learn.with.xml.PopMusic">
+    </bean>
+
+    <bean id="rockMusic"
+          class="spring.learn.with.xml.RockMusic">
+    </bean>
+
+    <bean id="musicPlayer"
+          class="spring.learn.with.xml.MusicPlayer">
+
+
+<!--        * D.I Внедрение зависимости с помощью "конструктора"-->
+<!--        <constructor-arg ref="classMusicBean"/>-->
+<!--        <constructor-arg ref="rockMusic"/>-->
+<!--        <constructor-arg ref="popMusicBean"/>-->
+
+<!--        * D.I Внедрение зависимости с помощью "конструктора + ArrayList"-->
+<!--        <constructor-arg>-->
+<!--            <list>-->
+<!--                <ref bean="classMusicBean" />-->
+<!--                <ref bean="popMusicBean" />-->
+<!--                <ref bean="rockMusic" />-->
+
+<!--            </list>-->
+<!--        </constructor-arg>-->
+
+<!--                * D.I Внедрение зависимости с помощью "cеттера"-->
+
+        <property name="musicList">
+                <list>
+                <ref bean="classMusicBean"/>
+                <ref bean="popMusicBean"/>
+                <ref bean="rockMusic"/>
+                </list>
+        </property>
+
+<!--        <property name="name" value="testing_beans"/>-->
+<!--        <property name="value" value="1"/>-->
+
+<!--        * С использованием (application.properties)-->
+        <property name="name" value="${musicPlayer.name}"/>
+        <property name="value" value="${musicPlayer.volume}"/>
+    </bean>
+
+</beans>
